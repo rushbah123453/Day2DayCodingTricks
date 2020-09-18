@@ -1,7 +1,14 @@
-Reference: https://github.com/docker/for-win/issues/3171
+Reference 1: https://github.com/docker/for-win/issues/3171
+Reference 2: https://ammozon.co.in/headtohead/?p=514
 
 netsh interface ipv4 show excludedportrange protocol=tcp // will show excluded tcp ports on windows
 
 netsh int ipv show dynamicport tcp //tcp dynamic port configs
 
 netsh int ipv set dynamic tcp start=49152 num=16384
+
+dism.exe /Online /Disable-Feature:Microsoft-Hyper-V //disable hyper-v
+
+netsh int ipv4 add excludedportrange protocol=tcp startport=50070 numberofports=1//reserve the ports u want, so hyper-v dont reserves it
+
+dism.exe /Online /Enable-Feature:Microsoft-Hyper-V /All //enable hyper-v again 
