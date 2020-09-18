@@ -1,0 +1,31 @@
+Docker ps // shows all running images
+Docker image // shows all images in docker
+Docker commit id name:tag //to make docker image snapshot
+Docker stop id//stop any docker 
+
+//pull Golang Image
+docker pull golang:latest
+
+
+Got src of counsel -> then mount the src to go image that we have pulled
+
+Mounting (one time):
+PS C:\projects\counsel\gopath\src> docker run --rm -it -p 2345:2345 -v ${PWD}:/go/src/ -p 8080:8080 golang:latest /bin/bash
+
+
+Run the docker from src:
+PS C:\projects\counsel\gopath\src> docker run --rm -it -p 2345:2345 -v ${PWD}:/go/src/ -p 8080:8080 counselimage:1.0 /bin/bash
+
+Run go from counsel-server:
+root@f10fafd4fe02:/go/src/counsel1# go run ./cmd/counsel-server/main.go --port 8080 --dbfile ./db/counsel.db
+
+//remote debugging install package(optional)
+root@e65af29f7d9a:/go/src/counsel1# go get github.com/go-delve/delve/cmd/dlv
+
+//run with debugging
+root@e65af29f7d9a:/go/src/counsel1/cmd/counsel-server# dlv debug --listen=:2345 --headless=true --api-version=2 --log
+
+root@2fd657c02804:/go/src/counsel1/cmd#  go build counsel1/cmd/counsel-server
+ go build counsel1/cmd/counsel-server //create binary
+go install counsel1/cmd/counsel-server
+ ../../bin/counsel-server --port 8080 --dbfile ./db/counsel.db
