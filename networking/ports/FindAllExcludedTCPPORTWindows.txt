@@ -1,0 +1,7 @@
+Reference: https://github.com/docker/for-win/issues/3171
+
+netsh interface ipv4 show excludedportrange protocol=tcp // will show excluded tcp ports on windows
+
+netsh int ipv show dynamicport tcp //tcp dynamic port configs
+
+netsh int ipv set dynamic tcp start=49152 num=16384
